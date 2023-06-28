@@ -1,0 +1,52 @@
+--------------------------- INSTALAÇÃO FERRAMENTAS NECESSÁRIAS ----------------------------
+
+sudo apt-get install net-tools
+sudo apt-get install ifupdown
+sudo apt install openssh-server
+
+------------------------------------- NETWORK SETUP ----------------------------------------
+
+sudo nano /etc/network/interfaces
+
+Node1:
+auto enp0s8
+allow-hotplug enp0s8
+iface enp0s8 inet static
+address 192.168.1.120
+netmask 255.255.255.0
+network 192.168.1.0
+broadcast 192.168.1.255
+
+Node2:
+auto enp0s8
+allow-hotplug enp0s8
+iface enp0s8 inet static
+address 192.168.1.130
+netmask 255.255.255.0
+network 192.168.1.0
+broadcast 192.168.1.255
+
+sudo ifup enp0s8
+ifconfig
+sudo ifdown enp0s8
+
+Node1:
+sudo hostnamectl set-hostname "hostname" -> sudo hostnamectl set-hostname node1.cluster.local
+
+Node2:
+sudo hostnamectl set-hostname "hostname" -> sudo hostnamectl set-hostname node1.cluster.local
+
+sudo nano /etc/hosts
+
+Node1:
+"ip address" "hostname" -> 192.168.1.110 node1.cluster.local
+
+Node2:
+"ip address" "hostname" -> 192.168.1.110 node2.cluster.local
+
+hostname
+
+---------------------------------------- SSH SETUP ------------------------------------------
+
+sudo systemctl status ssh
+sudo systemctl enable ssh
